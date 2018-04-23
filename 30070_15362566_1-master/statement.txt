@@ -1,0 +1,10 @@
+15362566
+Abdulrahman Salim
+The following program takes in two files Trips and Cars and both have different characteristics.
+my code takes in the litres of a car and km per litres it can travel and calculates the range of the code.
+it then checks the trip distance and sees what car has the range to do it.
+ (in doing this i simply sorted the trip distance and ranges and matched them)
+ so the end product would be the trip which suits the car the most.
+ it took me a while to find a way to pair them both together.
+ i had few ideas and experimented so many times but in the end came up with this conclusion.
+ i also was using the shop as a template and was not comfortable with the to_s function

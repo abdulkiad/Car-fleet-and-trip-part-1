@@ -1,0 +1,169 @@
+Index: Collection_test.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Collection_test.rb	(revision )
++++ Collection_test.rb	(revision )
+@@ -0,0 +1,27 @@
++require 'test/unit'
++require_relative'trip'
++require_relative 'trip_collection'
++class UnitTest < Test::Unit::TestCase
++
++  def setup
++    @trips= TripCollection.new
++    @trips.add_trip(Trip.new(1,430)) #adding
++    @trips.add_trip(Trip.new(2,230)) #adding
++    @trips.add_trip(Trip.new(3,130)) #adding
++
++  end
++
++  def test_to_s
++    # @trip.add_trip(Trip.new(3,230)) #adding
++    assert_equal("1  430", @trips.to_s,'to_s returns incorrect string')
++  end
++
++  def test_sort
++
++    @trips.sort!
++    assert_equal("3  130\n2  230\n1  430", @trips.to_s,'to_s returns incorrect string')
++
++  end
++
++
++end
+\ No newline at end of file
+Index: testing.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- testing.rb	(revision )
++++ testing.rb	(revision )
+@@ -0,0 +1,11 @@
++require_relative'trip'
++require_relative 'trip_collection'
++class Testing
++  @trips= TripCollection.new
++  @trips.add_trip(Trip.new(1,430)) #adding
++  @trips.add_trip(Trip.new(2,230)) #adding
++  @trips.add_trip(Trip.new(3,130)) #adding
++  @trips.sort!
++
++  puts @trips.to_s
++end
+\ No newline at end of file
+Index: trip.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- trip.rb	(revision 612d43db32392d252d38e57b123f5f059a35789b)
++++ trip.rb	(revision )
+@@ -6,5 +6,8 @@
+       @trip_id = id
+       @trip_distance= distance
+     end
++    def to_s
++      "#{@trip_id}  #{@trip_distance}"
++    end
+ 
+   end
+\ No newline at end of file
+Index: collection_test.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- collection_test.rb	(revision 612d43db32392d252d38e57b123f5f059a35789b)
++++ collection_test.rb	(revision 612d43db32392d252d38e57b123f5f059a35789b)
+@@ -1,11 +0,0 @@
+-require 'test/unit'
+-class Collection_Test
+-
+-  def setup
+-    trip= Trip.new
+-    trip.add_trip(Trip.new(1,230)) #adding
+-    trip.add_trip(Trip.new(2,320)) #adding
+-    trip.add_trip(Trip.new(3,159)) #adding
+-  end
+-
+-end
+\ No newline at end of file
+Index: trip_collection.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- trip_collection.rb	(revision 612d43db32392d252d38e57b123f5f059a35789b)
++++ trip_collection.rb	(revision )
+@@ -15,6 +15,16 @@
+     def sort!
+       @number_of_trips.sort!{|p1, p2| p1.trip_distance <=> p2.trip_distance}
+     end
++    def to_s
++      str = ''
++      @number_of_trips.each_with_index do |product, i|
++        str += product.to_s
++        if i < @number_of_trips.length-1 #      add newline between items
++          str += "\n"
++        end
++      end
++      return str
++    end
+ 
+ 
+   end
+\ No newline at end of file
+Index: trip_test.rb
+===================================================================
+--- trip_test.rb	(revision 612d43db32392d252d38e57b123f5f059a35789b)
++++ trip_test.rb	(revision 612d43db32392d252d38e57b123f5f059a35789b)
+@@ -1,8 +0,0 @@
+-require 'test/unit'
+-require_relative 'trip'
+-class Trip_test
+-  def setup
+-   @my_trip=Trip.new(3,200)
+-  end
+-
+-end
+\ No newline at end of file
+Index: car.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- car.rb	(revision 612d43db32392d252d38e57b123f5f059a35789b)
++++ car.rb	(revision )
+@@ -14,5 +14,9 @@
+ 
+       end
+ 
++      def to_s
++        "#{@car_id} #{@litres_in_tank} #{@km_per_litre}"
++
++      end
+ 
+     end
+\ No newline at end of file
+Index: car_test.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- car_test.rb	(revision 612d43db32392d252d38e57b123f5f059a35789b)
++++ car_test.rb	(revision )
+@@ -14,5 +14,10 @@
+       assert_equal(12,@my_car.to_range,'to_s returns incorrect string')
+     end
+ 
++    def test_to_s
++      assert_equal("1 2 3",@my_car.to_s,'rah')
++
++    end
++
+ 
+   end
+\ No newline at end of file
